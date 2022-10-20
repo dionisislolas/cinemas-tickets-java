@@ -34,6 +34,7 @@ public class TicketServiceImpl implements TicketService {
         }
 
         Arrays.stream(ticketTypeRequests)
+                .parallel()
                 .filter(ticketTypeRequest -> ticketTypeRequest.getTicketType().equals(TicketTypeRequest.Type.ADULT))
                 .findFirst()
                 .orElseThrow(() -> new InvalidPurchaseException(NO_ADULT_TICKET));
@@ -71,6 +72,7 @@ public class TicketServiceImpl implements TicketService {
 
     private int calculateNumberOfAdultTickets(TicketTypeRequest... ticketTypeRequests) {
         return Arrays.stream(ticketTypeRequests)
+                .parallel()
                 .filter(ticketTypeRequest -> ticketTypeRequest.getTicketType().equals(TicketTypeRequest.Type.ADULT))
                 .map(TicketTypeRequest::getNoOfTickets)
                 .mapToInt(Integer::intValue)
@@ -79,6 +81,7 @@ public class TicketServiceImpl implements TicketService {
 
     private int calculateNumberOfChildTickets(TicketTypeRequest... ticketTypeRequests) {
         return Arrays.stream(ticketTypeRequests)
+                .parallel()
                 .filter(ticketTypeRequest -> ticketTypeRequest.getTicketType().equals(TicketTypeRequest.Type.CHILD))
                 .map(TicketTypeRequest::getNoOfTickets)
                 .mapToInt(Integer::intValue)
@@ -87,6 +90,7 @@ public class TicketServiceImpl implements TicketService {
 
     private int calculateNumberOfInfantTickets(TicketTypeRequest... ticketTypeRequests) {
         return Arrays.stream(ticketTypeRequests)
+                .parallel()
                 .filter(ticketTypeRequest -> ticketTypeRequest.getTicketType().equals(TicketTypeRequest.Type.INFANT))
                 .map(TicketTypeRequest::getNoOfTickets)
                 .mapToInt(Integer::intValue)
